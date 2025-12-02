@@ -1,6 +1,8 @@
 import Button from "../Button";
 
-export function ProjectsSidebar({ onStartAddProject, projects, onSelectedPorject }) {
+export function ProjectsSidebar({ onStartAddProject, projects, onSelectedPorject, currentProject }) {
+
+
   return (
     <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
       <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">Your Projects</h2>
@@ -10,9 +12,21 @@ export function ProjectsSidebar({ onStartAddProject, projects, onSelectedPorject
       <ul className="mt-8">
         {
           projects.map((item) => {
+            let cssClasses = 'w-full text-left px-2 py-1 roundem-sm my-1 text-stone-400 hover:bg-stone-800'
+            if (item.id === currentProject?.id) {
+              cssClasses += ' bg-stone-800 text-stone-200'
+            }
+            else {
+              cssClasses += '  text-stone-400'
+            }
             return (
-              <li key={item.id} onClick={() => onSelectedPorject(item.id)}>
-                {item.title}
+              <li key={item.id} >
+                <button
+                  onClick={() => onSelectedPorject(item.id)}
+                  className={cssClasses}
+                >
+                  {item.title}
+                </button>
               </li>
             )
           })

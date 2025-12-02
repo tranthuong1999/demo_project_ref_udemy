@@ -49,13 +49,23 @@ function App() {
       }
     })
   }
-  let content = <SelectProject project={currentProject} />;
-  if (projectedState.selectProjectId === null) {
-    content = <NewProject onSave={handleCreateNewProject} onCancel={handleCancelNewProject} />
+
+  const handleDeleteProject = () => {
+    setProjectedState((prev) => {
+      return {
+        ...prev,
+        selectProjectId: undefined,
+        projects: prev.projects.filter((project) => project.id !== prev.selectProjectId)
+      }
+    })
   }
-  else if (projectedState.selectProjectId === undefined) {
-    content = <NoProjectSelected onStartAddProject={handleStartAddProject} />
-  }
+  // let content = <SelectProject project={currentProject} onDelete={handleDeleteProject} />;
+  // if (projectedState.selectProjectId === null) {
+  //   content = <NewProject onSave={handleCreateNewProject} onCancel={handleCancelNewProject} />
+  // }
+  // else if (projectedState.selectProjectId === undefined) {
+  //   content = <NoProjectSelected onStartAddProject={handleStartAddProject} />
+  // }
 
   return (
     <main className="h-screen my-8 flex gap-8">
@@ -63,11 +73,15 @@ function App() {
         onStartAddProject={handleStartAddProject}
         projects={projectedState.projects}
         onSelectedPorject={(id) => handleSelectedProject(id)}
+        currentProject={currentProject}
       />
-      {content}
-      {/* {
-        projectedState.selectProjectId === null ? <NewProject onSave={handleCreateNewProject} onCancel={handleCancelNewProject} /> : (projectedState.selectProjectId === undefined ? <NoProjectSelected onStartAddProject={handleStartAddProject} /> : "")
-      } */}
+      {
+        projectedState.selectProjectId === null ?
+          <NewProject onSave={handleCreateNewProject} onCancel={handleCancelNewProject} /> : (
+            projectedState.selectProjectId === undefined ?
+              <NoProjectSelected onStartAddProject={handleStartAddProject} /> : <SelectProject project={currentProject} onDelete={handleDeleteProject} />
+          )
+      }
     </main>
   )
 }
