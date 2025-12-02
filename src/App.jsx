@@ -24,13 +24,19 @@ function App() {
 
       return {
         ...prev,
-        tasks: [newTask ,...prev.tasks ],
+        tasks: [newTask, ...prev.tasks],
       };
     });
 
   }
 
-  const handleDeleteTask = () => {
+  const handleDeleteTask = (id) => {
+    setProjectedState((prev) => {
+      return {
+        ...prev,
+        tasks: prev.tasks.filter((task) => task.id !== id)
+      }
+    })
 
   }
 
@@ -87,9 +93,6 @@ function App() {
   // else if (projectedState.selectProjectId === undefined) {
   //   content = <NoProjectSelected onStartAddProject={handleStartAddProject} />
   // }
-
-  console.log("projectedState", projectedState)
-
   return (
     <main className="h-screen my-8 flex gap-8">
       <ProjectsSidebar

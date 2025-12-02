@@ -16,7 +16,7 @@ const Modal = ({ children, buttonCaption, ref }) => {
 
     return (
         createPortal(
-            (<dialog ref={dialog} className="backdrop:bg-stone-900/90 p-4 rounded-md shadow-md">
+            (<dialog ref={dialog} className="backdrop:bg-stone-900/90 p-4 rounded-md shadow-md relative top-[40%] left-[40%]">
                 {children}
                 <form method='dialog' className='mt-4 text-center'>
                     <Button> {buttonCaption}</Button>
